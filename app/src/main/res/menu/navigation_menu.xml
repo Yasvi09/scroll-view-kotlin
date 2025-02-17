@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/share_icon"
+            android:title="Share Earn" />
+        <item
+            android:id="@+id/nav_reedem"
+            android:icon="@drawable/reedem_icon"
+            android:title="Reedem" />
+        <item
+            android:id="@+id/nav_rate"
+            android:icon="@drawable/rate_icon"
+            android:title="Rate US" />
+
+        <item
+            android:id="@+id/nav_term"
+            android:icon="@drawable/terms_icon"
+            android:title="Term Condition" />
+        <item
+            android:id="@+id/nav_help"
+            android:icon="@drawable/help_icon"
+            android:title="Help Support" />
+    </group>
+</menu>

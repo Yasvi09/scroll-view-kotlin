@@ -1,0 +1,58 @@
+<!--*Text switcher
+<resources>
+    <string name="app_name">TextSwitcherInKotlin</string>
+    <string name="next">Next</string>
+    <string name="prev">Prev</string>
+</resources>-->
+
+<!--*image switcher
+<resources>
+    <string name="app_name">ImageSwitcherInKotlin</string>
+    <string name="next">Next</string>
+    <string name="prev">Prev</string>
+</resources>
+-->
+
+<!--*Time picker
+<resources>
+    <string name="app_name">TimePickerInKotlin</string>
+</resources>-->
+
+<!--
+*Date picker
+<resources>
+    <string name="app_name">DatePickerInKotlin</string>
+</resources>
+-->
+<!--*Spinner
+<resources>
+    <string name="app_name">SpinnerInKotlin</string>
+    <string name="selected_item">Selected item:</string>
+
+    <string-array name="Languages">
+        <item>Java</item>
+        <item>Kotlin</item>
+        <item>Swift</item>
+        <item>Python</item>
+        <item>Scala</item>
+        <item>Perl</item>
+    </string-array>
+</resources>-->
+
+<resources>
+    <string name="app_name">ListView</string>
+    <string name="openDrawer">Open Drawer</string>
+    <string name="closeDrawer">Close Drawer</string>
+    <string name="TV_Login">Login</string>
+    <string name="et_email">Enter Email Address</string>
+    <string name="et_password">Password</string>
+    <string name="btn_login">Login</string>
+    <string name="tv_last">Don\'t have an account ? sign up</string>
+    <string name="tv_signup">Sign up</string>
+    <string name="et_name">Enter Your Name</string>
+    <string name="et_mobile">Mobile Number</string>
+    <string name="et_code">Refer Code</string>
+    <string name="sign_pass">Enter Password</string>
+    <string name="sign_conpass">Enter Confirm Password</string>
+    <string name="default_web_client_id">AIzaSyCCySlHJyW6qL3uNFYxZokFevgytfqw-gw</string>
+</resources>

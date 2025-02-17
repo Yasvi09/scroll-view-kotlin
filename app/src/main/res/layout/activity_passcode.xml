@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#5499c7"
+        android:padding="10dp"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/back_arrow"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/arrowback"
+            android:contentDescription="Back"
+            android:layout_marginEnd="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Title"
+            android:layout_marginLeft="10dp"
+            android:textSize="18sp"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="55dp">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_lock"
+        android:padding="20dp"
+        android:background="@drawable/circle_background"/>
+
+    <TextView
+        android:id="@+id/passcodeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter your passcode"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/passcodeSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Use minimum of 4 digit code"
+        android:textSize="14sp"
+        android:textColor="@color/gray"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center">
+
+        <EditText
+            android:id="@+id/pin1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:inputType="number"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:maxLength="1"
+            android:background="@drawable/passcode_box"/>
+
+        <EditText
+            android:id="@+id/pin2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:inputType="number"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:maxLength="1"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/passcode_box"/>
+
+        <EditText
+            android:id="@+id/pin3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:inputType="number"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:maxLength="1"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/passcode_box"/>
+
+        <EditText
+            android:id="@+id/pin4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:inputType="number"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:maxLength="1"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/passcode_box"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/forgot_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Forgot code?"
+        android:textSize="14sp"
+        android:textColor="#5dade2 "
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="230dp"/>
+
+</LinearLayout>

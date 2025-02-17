@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "910337500792",
+    "project_id": "scrollview-6c893",
+    "storage_bucket": "scrollview-6c893.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:910337500792:android:7716d720796ab3e660ef8d",
+        "android_client_info": {
+          "package_name": "com.example.scrollview"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "910337500792-p8jc5ra6sh01etfh0rlhtu9ag9itvmfd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.scrollview",
+            "certificate_hash": "50dffe1624d0440ea0207e5ac009cc9ebb8d4ffd"
+          }
+        },
+        {
+          "client_id": "910337500792-6jklpt59sago4luo4v4bbemqg0e833nj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCySlHJyW6qL3uNFYxZokFevgytfqw-gw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "910337500792-6jklpt59sago4luo4v4bbemqg0e833nj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
