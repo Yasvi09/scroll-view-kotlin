@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.scrollview.R
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 
 class HomeActivity : AppCompatActivity() {
@@ -48,6 +50,25 @@ class HomeActivity : AppCompatActivity() {
 
         btnLogout.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
+
+            val googleSignInClient = GoogleSignIn.getClient(this,
+                GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestIdToken(getString(R.string.default_web_client_id))
+                    .requestEmail()
+                    .build()
+            )
+            googleSignInClient.signOut().addOnCompleteListener {
+                // Clear shared preferences
+                val sharedPreferences = getSharedPreferences("LoginPrefs", MODE_PRIVATE)
+                sharedPreferences.edit().clear().apply()
+
+                Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show()
+
+                val intent = Intent(this, LoginActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+                finish()
+            }
 
 
             val sharedPreferences = getSharedPreferences("LoginPrefs", MODE_PRIVATE)

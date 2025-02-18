@@ -81,10 +81,12 @@ class LoginActivity : AppCompatActivity() {
         btnLogin.setOnClickListener {
             val email = etemail.text.toString()
             val password = etpassword.text.toString()
-            val captchaInput=etCaptcha.text.toString()
+            val captchaInput = etCaptcha.text.toString()
 
             if (ValidateEmailAndPassword(email, password) && ValidateCaptcha(captchaInput)) {
+                // If validation succeeds, proceed with biometric
                 startBiometricAuthentication()
+                // The biometric success handler will call handleSuccessfulLogin
             } else {
                 Toast.makeText(this, "Please fix the errors", Toast.LENGTH_SHORT).show()
             }
@@ -135,13 +137,12 @@ class LoginActivity : AppCompatActivity() {
 
 
                 // Save login state
-                val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
-                sharedPreferences.edit().putBoolean("isLoggedIn", true).apply()
-
-                // Proceed to next activity after successful authentication
-                val intent = Intent(this@LoginActivity, PasscodeActivity::class.java)
-                startActivity(intent)
-                finish()
+                // Use the common success handler
+                handleSuccessfulLogin(
+                    name = etemail.text.toString(), // or get from shared preferences
+                    email = etemail.text.toString(),
+                    profileImageUrl = null
+                )
             }
 
             override fun onAuthenticationFailed() {
@@ -218,8 +219,32 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun signInWithGoogle() {
-        val signInIntent: Intent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
+        googleSignInClient.signOut().addOnCompleteListener {
+            // Then start new sign in
+            val signInIntent: Intent = googleSignInClient.signInIntent
+            startActivityForResult(signInIntent, RC_SIGN_IN)
+        }
+    }
+
+    private fun handleSuccessfulLogin(name: String?, email: String?, profileImageUrl: String?) {
+        // Save login state and user info
+        val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
+        sharedPreferences.edit().apply {
+            putBoolean("isLoggedIn", true)
+            putString("name", name)
+            putString("email", email)
+            putString("profileImageUrl", profileImageUrl)
+            apply()
+        }
+
+        // Proceed to passcode setup/verification
+        val intent = Intent(this@LoginActivity, PasscodeActivity::class.java).apply {
+            putExtra("name", name)
+            putExtra("email", email)
+            putExtra("profileImageUrl", profileImageUrl)
+        }
+        startActivity(intent)
+        finish()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -243,21 +268,15 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = auth.currentUser
-                    val name = user?.displayName
-                    val email = user?.email
-                    val profileImageUrl = user?.photoUrl.toString()
 
-                    Toast.makeText(this, "Welcome ${user?.displayName}", Toast.LENGTH_SHORT).show()
-
-                    val intent = Intent(this, PasscodeActivity::class.java).apply {
-                        putExtra("name", name)
-                        putExtra("email", email)
-                        putExtra("profileImageUrl", profileImageUrl)
-                    }
-                    startActivity(intent)
-                    finish()
+                    handleSuccessfulLogin(
+                        name = user?.displayName,
+                        email = user?.email,
+                        profileImageUrl = user?.photoUrl.toString()
+                    )
                 } else {
-                    Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Authentication failed.",
+                        Toast.LENGTH_SHORT).show()
                 }
             }
     }

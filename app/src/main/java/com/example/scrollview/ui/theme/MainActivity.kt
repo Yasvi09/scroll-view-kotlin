@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.scrollview.R
 import android.os.Handler
 import android.content.Intent
+import android.os.Looper
+import android.util.Log
 
 class   MainActivity : AppCompatActivity() {
 
@@ -20,26 +22,30 @@ class   MainActivity : AppCompatActivity() {
         },1000)*/
 
 
-        Handler().postDelayed({
+        Handler(Looper.getMainLooper()).postDelayed({
+            println("Hello")
+            // Check if user is already logged in
             // Check if user is already logged in
             val sharedPreferences = getSharedPreferences("LoginPrefs", MODE_PRIVATE)
             val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
 
+            println(isLoggedIn)
+
             if (isLoggedIn) {
-                // Get saved user details
+                // If logged in, get saved user details and go to passcode verification
                 val name = sharedPreferences.getString("name", "")
                 val email = sharedPreferences.getString("email", "")
                 val profileImageUrl = sharedPreferences.getString("profileImageUrl", "")
 
-                // Go directly to HomeActivity
-                val intent = Intent(this, HomeActivity::class.java).apply {
+                // Go to PasscodeActivity for verification
+                val intent = Intent(this, PasscodeActivity::class.java).apply {
                     putExtra("name", name)
                     putExtra("email", email)
                     putExtra("profileImageUrl", profileImageUrl)
                 }
                 startActivity(intent)
             } else {
-                // Go to LoginActivity
+                // If not logged in, go to LoginActivity
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
             }
