@@ -1,6 +1,7 @@
 package com.example.scrollview.ui.theme
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableString
@@ -121,6 +122,11 @@ class LoginActivity : AppCompatActivity() {
             override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                 super.onAuthenticationSucceeded(result)
                 Toast.makeText(applicationContext, "Authentication succeeded!", Toast.LENGTH_SHORT).show()
+
+
+                // Save login state
+                val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
+                sharedPreferences.edit().putBoolean("isLoggedIn", true).apply()
 
                 // Proceed to next activity after successful authentication
                 val intent = Intent(this@LoginActivity, PasscodeActivity::class.java)
@@ -245,5 +251,6 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
     }
+
 
 }

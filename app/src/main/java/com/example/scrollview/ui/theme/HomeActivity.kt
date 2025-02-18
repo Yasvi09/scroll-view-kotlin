@@ -48,9 +48,17 @@ class HomeActivity : AppCompatActivity() {
 
         btnLogout.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
+
+
+            // Clear login state
+            val sharedPreferences = getSharedPreferences("LoginPrefs", MODE_PRIVATE)
+            sharedPreferences.edit().clear().apply()
+
             Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show()
 
             val intent= Intent(this,LoginActivity::class.java)
+
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             finish()
         }
