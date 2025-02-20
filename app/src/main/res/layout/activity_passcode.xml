@@ -69,54 +69,12 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/passcodeContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="50dp"
         android:layout_gravity="center">
-
-        <EditText
-            android:id="@+id/pin1"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:inputType="number"
-            android:textSize="24dp"
-            android:gravity="center"
-            android:maxLength="1"
-            android:background="@drawable/passcode_box"/>
-
-        <EditText
-            android:id="@+id/pin2"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:inputType="number"
-            android:textSize="24dp"
-            android:gravity="center"
-            android:maxLength="1"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/passcode_box"/>
-
-        <EditText
-            android:id="@+id/pin3"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:inputType="number"
-            android:textSize="24dp"
-            android:gravity="center"
-            android:maxLength="1"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/passcode_box"/>
-
-        <EditText
-            android:id="@+id/pin4"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:inputType="number"
-            android:textSize="24dp"
-            android:gravity="center"
-            android:maxLength="1"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/passcode_box"/>
 
     </LinearLayout>
 

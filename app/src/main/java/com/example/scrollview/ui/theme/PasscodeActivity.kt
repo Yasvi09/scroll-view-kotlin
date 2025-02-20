@@ -4,8 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.InputType
+import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +21,7 @@ class PasscodeActivity : AppCompatActivity() {
     private var name: String? = null
     private var email: String? = null
     private var profileImageUrl: String? = null
+    private val passcodeLength = 5
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,10 +46,10 @@ class PasscodeActivity : AppCompatActivity() {
 
         if (savedPasscode == null) {
             passcodeTitle.text = "Set your passcode"
-            passcodeSubtitle.text = "Use a 4-digit code"
+            passcodeSubtitle.text = "Use a ${passcodeLength}-digit code"
         } else {
             passcodeTitle.text = "Enter your passcode"
-            passcodeSubtitle.text = "Use your 4-digit code"
+            passcodeSubtitle.text = "Use your ${passcodeLength}-digit code"
         }
 
         setupListeners(savedPasscode)
@@ -54,50 +58,64 @@ class PasscodeActivity : AppCompatActivity() {
     }
 
     private fun setupListeners(savedPasscode: String?) {
-        val digit1 = findViewById<EditText>(R.id.pin1)
-        val digit2 = findViewById<EditText>(R.id.pin2)
-        val digit3 = findViewById<EditText>(R.id.pin3)
-        val digit4 = findViewById<EditText>(R.id.pin4)
-        val forgotCode = findViewById<TextView>(R.id.forgot_code)
+        val passcodeContainer = findViewById<LinearLayout>(R.id.passcodeContainer)
+        val editTexts = mutableListOf<EditText>()
 
-        digit1.setOnKeyListener { _, _, _ -> if (digit1.text.length == 1) digit2.requestFocus(); false }
-        digit2.setOnKeyListener { _, _, _ -> if (digit2.text.length == 1) digit3.requestFocus(); false }
-        digit3.setOnKeyListener { _, _, _ -> if (digit3.text.length == 1) digit4.requestFocus(); false }
-
-        digit4.setOnKeyListener { _, _, _ ->
-            if (digit4.text.length == 1) {
-                val enteredPasscode = "${digit1.text}${digit2.text}${digit3.text}${digit4.text}"
-
-                if (savedPasscode == null) {
-
-                    savePasscode(enteredPasscode)
-                    showToast("Passcode set successfully")
-                    navigateToHome()
-                } else {
-
-                    if (enteredPasscode == savedPasscode) {
-                        showToast("Passcode correct")
-                        navigateToHome()
-                    } else {
-                        showToast("Incorrect passcode")
-                        clearPasscodeFields()
-                    }
+        for (i in 0 until passcodeLength) {
+            val editText = EditText(this).apply {
+                layoutParams = LinearLayout.LayoutParams(130, 130).apply {
+                    if (i != 0) setMargins(16, 0, 0, 0)
                 }
+                inputType = InputType.TYPE_CLASS_NUMBER
+                textSize = 24f
+                gravity = android.view.Gravity.CENTER
+                maxLines = 1
+                id = View.generateViewId()
+                background = getDrawable(R.drawable.passcode_box)
             }
-            false
+            passcodeContainer.addView(editText)
+            editTexts.add(editText)
         }
 
-        forgotCode.setOnClickListener {
-            showToast("Forgot Code Clicked")
+        for (i in 0 until passcodeLength) {
+            editTexts[i].addTextChangedListener(object : android.text.TextWatcher {
+                override fun afterTextChanged(s: android.text.Editable?) {
+                    if (s?.length == 1) {
+                        if (i < passcodeLength - 1) {
+                            editTexts[i + 1].requestFocus()
+                        } else {
+
+                            val enteredPasscode = editTexts.joinToString("") { it.text.toString() }
+
+                            if (savedPasscode == null) {
+                                savePasscode(enteredPasscode)
+                                showToast("Passcode set successfully")
+                                navigateToHome()
+                            } else {
+                                if (enteredPasscode == savedPasscode) {
+                                    showToast("Passcode correct")
+                                    navigateToHome()
+                                } else {
+                                    showToast("Incorrect passcode")
+                                    clearPasscodeFields(editTexts)
+                                }
+                            }
+                        }
+                    } else if (s?.length == 0 && i > 0) {
+                        editTexts[i - 1].requestFocus()
+                    }
+                }
+
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            })
         }
     }
 
-    private fun clearPasscodeFields() {
-        findViewById<EditText>(R.id.pin1).text.clear()
-        findViewById<EditText>(R.id.pin2).text.clear()
-        findViewById<EditText>(R.id.pin3).text.clear()
-        findViewById<EditText>(R.id.pin4).text.clear()
-        findViewById<EditText>(R.id.pin1).requestFocus()
+
+    private fun clearPasscodeFields(editTexts:List<EditText>) {
+        editTexts.forEach { it.text.clear() }
+        editTexts.first().requestFocus()
     }
 
     private fun savePasscode(passcode: String) {
