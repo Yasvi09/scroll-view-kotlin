@@ -13,22 +13,11 @@ class   MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-/*
-        Handler().postDelayed({
-            val intent=Intent(this,BlankActivity::class.java)
-            startActivity(intent)
-            finish()
-        },1000)*/
-
 
         Handler(Looper.getMainLooper()).postDelayed({
-            println("Hello")
-           
 
             val sharedPreferences = getSharedPreferences("LoginPrefs", MODE_PRIVATE)
             val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
-
-            println(isLoggedIn)
 
             if (isLoggedIn) {
 

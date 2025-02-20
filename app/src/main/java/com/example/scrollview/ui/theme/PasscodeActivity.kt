@@ -23,15 +23,20 @@ class PasscodeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_passcode)
 
+       init()
+    }
+
+    private fun init(){
         name = intent.getStringExtra("name")
         email = intent.getStringExtra("email")
         profileImageUrl = intent.getStringExtra("profileImageUrl")
 
-        sharedPreferences = getSharedPreferences("PasscodePrefs", Context.MODE_PRIVATE)
+        sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
 
         val passcodeTitle = findViewById<TextView>(R.id.passcodeTitle)
         val passcodeSubtitle = findViewById<TextView>(R.id.passcodeSubtitle)
         val backArrow = findViewById<ImageView>(R.id.back_arrow)
+
 
         val savedPasscode = getSavedPasscode()
 

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -49,7 +50,9 @@ class HomeActivity : AppCompatActivity() {
         }
 
         btnLogout.setOnClickListener {
+
             FirebaseAuth.getInstance().signOut()
+
 
             val googleSignInClient = GoogleSignIn.getClient(this,
                 GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -58,6 +61,7 @@ class HomeActivity : AppCompatActivity() {
                     .build()
             )
             googleSignInClient.signOut().addOnCompleteListener {
+                Log.d("HomeActivity", "Google SignOut completed")
 
                 val sharedPreferences = getSharedPreferences("LoginPrefs", MODE_PRIVATE)
                 sharedPreferences.edit().clear().apply()

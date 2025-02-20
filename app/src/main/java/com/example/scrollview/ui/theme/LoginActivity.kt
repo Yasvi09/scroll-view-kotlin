@@ -56,15 +56,7 @@ class LoginActivity : AppCompatActivity() {
 
         init()
 
-        val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
-        val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
 
-        if (isLoggedIn) {
-
-            val intent = Intent(this@LoginActivity, HomeActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
     }
 
     private fun init() {
@@ -149,14 +141,22 @@ class LoginActivity : AppCompatActivity() {
             }
         })
 
-
         biometricPromptInfo = BiometricPrompt.PromptInfo.Builder()
             .setTitle("Biometric Authentication")
             .setSubtitle("Use your fingerprint to login")
             .setNegativeButtonText("Cancel")
             .build()
-    }
 
+        val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
+        val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
+
+        if (isLoggedIn) {
+
+            val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+    }
 
     @SuppressLint("RestrictedApi")
     private fun startBiometricAuthentication() {
@@ -169,6 +169,7 @@ class LoginActivity : AppCompatActivity() {
 
         biometricPrompt.authenticate(biometricPromptInfo)
     }
+
     private fun generateCaptcha() : String{
         val chars="ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
         return (1..6).map { chars.random() }.joinToString("")
@@ -188,7 +189,6 @@ class LoginActivity : AppCompatActivity() {
             true
         }
     }
-
 
     private fun refreshCaptcha(){
         generatedCaptcha=generateCaptcha()
@@ -273,11 +273,9 @@ class LoginActivity : AppCompatActivity() {
                         profileImageUrl = user?.photoUrl.toString()
                     )
                 } else {
-                    Toast.makeText(this, "Authentication failed.",
-                        Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show()
                 }
             }
     }
-
 
 }
