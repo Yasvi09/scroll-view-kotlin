@@ -58,7 +58,7 @@ class HomeActivity : AppCompatActivity() {
                     .build()
             )
             googleSignInClient.signOut().addOnCompleteListener {
-                // Clear shared preferences
+
                 val sharedPreferences = getSharedPreferences("LoginPrefs", MODE_PRIVATE)
                 sharedPreferences.edit().clear().apply()
 

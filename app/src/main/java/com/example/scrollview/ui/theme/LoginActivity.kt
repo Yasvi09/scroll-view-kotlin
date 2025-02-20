@@ -60,7 +60,7 @@ class LoginActivity : AppCompatActivity() {
         val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
 
         if (isLoggedIn) {
-            // If the user is already logged in, redirect to the home screen
+
             val intent = Intent(this@LoginActivity, HomeActivity::class.java)
             startActivity(intent)
             finish()
@@ -84,9 +84,7 @@ class LoginActivity : AppCompatActivity() {
             val captchaInput = etCaptcha.text.toString()
 
             if (ValidateEmailAndPassword(email, password) && ValidateCaptcha(captchaInput)) {
-                // If validation succeeds, proceed with biometric
                 startBiometricAuthentication()
-                // The biometric success handler will call handleSuccessfulLogin
             } else {
                 Toast.makeText(this, "Please fix the errors", Toast.LENGTH_SHORT).show()
             }
